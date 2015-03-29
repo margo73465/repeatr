@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block body %}
+  <!-- Reference: https://developers.google.com/youtube/iframe_api_reference -->
+
+  <script type="text/javascript">
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var videoId = "{{ video_id|safe }}";
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: videoId,
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      play();
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        play();
+      }
+    }
+
+    function play() {
+      player.playVideo();
+      console.dir(player);
+      // console.dir(player.showVideoInfo());
+      console.dir(player.getVideoData());
+      var play_count = Number(document.getElementById("count").innerHTML) + 1;
+      document.getElementById("count").innerHTML = play_count;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("POST", "/update_database/", true);
+      // xmlhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
+      xmlhttp.send(JSON.stringify({ "video_id": videoId, "play_count": play_count} ));
+    }
+
+  </script>
+
+  <div id="player"></div>
+  <div id="count">0</div>
+
+  <ul class=videos>
+  {% for video in top_10 %}
+    <li><h2>{{ video.title }}</h2>{{ video.play_count }}
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
