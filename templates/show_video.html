@@ -33,9 +33,9 @@
 
     function play() {
       player.playVideo();
-      console.dir(player);
-      // console.dir(player.showVideoInfo());
-      console.dir(player.getVideoData());
+      // console.dir(player);
+      // console.dir(player.getVideoUrl());
+      // console.dir(player.getVideoData());
       var play_count = Number(document.getElementById("count").innerHTML) + 1;
       document.getElementById("count").innerHTML = play_count;
       var xmlhttp = new XMLHttpRequest();
@@ -51,9 +51,9 @@
 
   <ul class=videos>
   {% for video in top_10 %}
-    <li><h2>{{ video.title }}</h2>{{ video.play_count }}
+    <div class="top_10"><h2>{{ video.title }}</h2>{{ video.play_count }}</div>
   {% else %}
-    <li><em>Unbelievable.  No entries here so far</em>
+    <div><em>Unbelievable.  No entries here so far</em></div>
   {% endfor %}
   </ul>
 {% endblock %}
