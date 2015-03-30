@@ -1,3 +1,90 @@
 body {
-	background: blue;
+	background: #4C647D;
+	font-family: sans-serif;
 }
+
+img {
+	float: left;
+	display: inline-block;
+	/*margin: 0px 10px 10px 0px;*/
+	margin-right: 10px;
+	width: 120px;
+	height: 90px;
+}
+
+h1 {
+	font-family: 'Audiowide', cursive;
+}
+
+#header {
+	width: 640px;
+	/*height: 200px;*/
+	margin: auto;
+	display: block;
+	/*position: relative;*/
+}
+#logo {
+	font-size: 72px;
+	float: left;
+	margin-bottom: 10px;
+	/*position: absolute;*/
+	/*bottom: 0px;*/
+	/*left: 0px;*/
+}
+.nav {
+	margin-top: 100px;
+	float: right;
+	/*position: absolute;*/
+	/*bottom: 0px;*/
+	/*right: 0px;*/
+}
+
+#player {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#counter_main {
+	width: 640px;
+	text-align: center;
+	margin: auto;
+}
+
+#top_10 {
+	width: 640px;
+	text-align: left;
+	margin: auto;
+}
+
+.video {
+	border: 1px solid black;
+	background: white;
+	padding: 10px;
+	margin-bottom: 10px;
+	height: 90px;
+}
+
+.video_title {
+	width: 300px;
+	margin-right: 0px;
+	float: left;
+	display: inline;
+}
+
+.play_count {
+	text-align: center;
+	float: right;
+	width: 68px;
+	height: 68px;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px;
+	font-size: 10px;
+	background: #E7E7E7;
+}
+.play_count div {
+	font-size: 36px;
+	margin: 15px;
+}
+

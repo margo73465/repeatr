@@ -1,6 +1,25 @@
-{% extends "layout.html" %}
-{% block body %}
-  <!-- Reference: https://developers.google.com/youtube/iframe_api_reference -->
+<!doctype html>
+<head>
+  <title>Repeatr</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div id="header">
+    <h1 id="logo">Repeatr</h1>
+    <div class="nav">
+      <form action="/" method="POST" class="search">
+        <!-- <dl> -->
+          <!-- <dd> -->
+          <input type=text size=30 name=title value="Search for a video...">
+          <!-- </dd> -->
+          <!-- <dd> -->
+          <input type=submit value=Submit>
+          <!-- </dd> -->
+        <!-- </dl> -->
+      </form>
+    </div>
+  </div>
 
   <script type="text/javascript">
     var tag = document.createElement('script');
@@ -35,25 +54,50 @@
       player.playVideo();
       // console.dir(player);
       // console.dir(player.getVideoUrl());
-      // console.dir(player.getVideoData());
-      var play_count = Number(document.getElementById("count").innerHTML) + 1;
-      document.getElementById("count").innerHTML = play_count;
+      // console.log(player.getVideoData());
+      var play_count = Number(document.getElementById("counter").innerHTML) + 1;
+      document.getElementById("counter").innerHTML = play_count;
+      var total_duration = player.getDuration() * play_count;
+      if (total_duration / 3600 > 4) {
+        document.getElementById("duration").innerHTML = 
+        "You have been repeating this video for over 4 hours, weirdo.";
+      }
+
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.open("POST", "/update_database/", true);
       // xmlhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
-      xmlhttp.send(JSON.stringify({ "video_id": videoId, "play_count": play_count} ));
+      xmlhttp.send(JSON.stringify({ "video_id": videoId }));
     }
 
   </script>
 
   <div id="player"></div>
-  <div id="count">0</div>
+  <div id="counter_main">
+    <h1>Loops so far: <h1><div id="counter">0</div>
+    <div id="duration"></div> 
+  </div>
 
-  <ul class=videos>
+  <div id="top_10" style="width:640">
+  <h3 id="top_10_header">Top 10 Most Repeatd Videos:</h3>
+  <!-- <ol> -->
   {% for video in top_10 %}
-    <div class="top_10"><h2>{{ video.title }}</h2>{{ video.play_count }}</div>
+    <!-- <li> -->
+    <div class="video">
+      <!-- <div class="video_text"> -->
+        <img src="{{ video.thumbnail_url }}">
+        <p class="video_title"><a href="/watch?v={{ video.video_id }}">{{ video.title }}</a></p>
+        <!-- <p class="description">{{ video.description }}</p> -->
+      <!-- </div> -->
+      <div class="play_count">
+        Play Count:
+        <div>{{ video.play_count }}</div>
+      </div>
+    </div>
+    <!-- </li> -->
   {% else %}
     <div><em>Unbelievable.  No entries here so far</em></div>
   {% endfor %}
-  </ul>
-{% endblock %}
+  <!-- </ol> -->
+  </div>
+
+</body>

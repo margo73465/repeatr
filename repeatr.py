@@ -44,8 +44,9 @@ def teardown_request(exception):
 def show_video():
     video_id = str(request.args.get('v'))
 
-    cur = g.db.execute('SELECT title, play_count from videos ORDER BY play_count LIMIT 10')
-    videos = [dict(title=row[0], play_count=row[1]) for row in cur.fetchall()]
+    cur = g.db.execute('SELECT * from videos ORDER BY play_count DESC LIMIT 10')
+    videos = [dict(video_id=row[0], title=row[1], description=row[2], 
+        thumbnail_url=row[3], play_count=row[4]) for row in cur.fetchall()]
     
     return render_template('show_video.html', video_id=video_id, top_10=videos)
 
