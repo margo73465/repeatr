@@ -8,15 +8,9 @@
   <div id="header">
     <h1 id="logo">Repeatr</h1>
     <div class="nav">
-      <form action="/" method="POST" class="search">
-        <!-- <dl> -->
-          <!-- <dd> -->
-          <input type=text size=30 name=title value="Search for a video...">
-          <!-- </dd> -->
-          <!-- <dd> -->
-          <input type=submit value=Submit>
-          <!-- </dd> -->
-        <!-- </dl> -->
+      <form action="/watch" method="GET" class="search">
+        <input type="text" size=30 name="v" placeholder="Enter Youtube video ID">
+        <input type="submit" value="Loop it">
       </form>
     </div>
   </div>
@@ -79,25 +73,19 @@
 
   <div id="top_10" style="width:640">
   <h3 id="top_10_header">Top 10 Most Repeatd Videos:</h3>
-  <!-- <ol> -->
   {% for video in top_10 %}
-    <!-- <li> -->
     <div class="video">
-      <!-- <div class="video_text"> -->
         <img src="{{ video.thumbnail_url }}">
         <p class="video_title"><a href="/watch?v={{ video.video_id }}">{{ video.title }}</a></p>
         <!-- <p class="description">{{ video.description }}</p> -->
-      <!-- </div> -->
       <div class="play_count">
         Play Count:
         <div>{{ video.play_count }}</div>
       </div>
     </div>
-    <!-- </li> -->
   {% else %}
     <div><em>Unbelievable.  No entries here so far</em></div>
   {% endfor %}
-  <!-- </ol> -->
   </div>
 
 </body>

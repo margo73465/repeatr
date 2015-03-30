@@ -13,7 +13,7 @@ img {
 }
 
 h1 {
-	font-family: 'Audiowide', cursive;
+	font-family: 'Audiowide', sans-serif;
 }
 
 #header {
@@ -56,7 +56,9 @@ h1 {
 	text-align: left;
 	margin: auto;
 }
-
+#top_10_header {
+	font-family: 'Audiowide', sans-serif;
+}
 .video {
 	border: 1px solid black;
 	background: white;
@@ -66,7 +68,7 @@ h1 {
 }
 
 .video_title {
-	width: 300px;
+	width: 370px;
 	margin-right: 0px;
 	float: left;
 	display: inline;
