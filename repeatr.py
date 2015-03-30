@@ -32,13 +32,9 @@ def teardown_request(exception):
         db.close()
 
 
-# @app.route('/')
-# def get_top_10():
-# 	top_10 = g.db.execute('SELECT * from videos ORDER BY play_count LIMIT 10')
-# 	videos = []
-# 	for row in top_10.fetchall():
-# 		videos.push({title: row[1], link: row[2], image_link: row[3], description: row[3], play_count: row[4]})
-# 	return render_template('show_video.html', videos=videos)
+@app.route('/')
+def home():
+    return redirect("/watch?v=Dsg8JccRZCw", code=302)
 
 @app.route('/watch', methods=['GET'])
 def show_video():
