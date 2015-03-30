@@ -16,11 +16,13 @@
   </div>
 
   <script type="text/javascript">
+    // Set-up for YouTube Player API
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+    // Use the video_id that was passed in to queue up correct video
     var videoId = "{{ video_id|safe }}";
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
@@ -44,13 +46,16 @@
       }
     }
 
+    // Starts playing the video specified in the player object, increments loop
+    // counter on the screen, calculates duration (to potentially be used for
+    // something more interesting later in development), and sends an AJAX request
+    // to the server to update the play_count of the video in the database
     function play() {
       player.playVideo();
-      // console.dir(player);
-      // console.dir(player.getVideoUrl());
-      // console.log(player.getVideoData());
+
       var play_count = Number(document.getElementById("counter").innerHTML) + 1;
       document.getElementById("counter").innerHTML = play_count;
+      
       var total_duration = player.getDuration() * play_count;
       if (total_duration / 3600 > 4) {
         document.getElementById("duration").innerHTML = 
@@ -59,7 +64,6 @@
 
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.open("POST", "/update_database/", true);
-      // xmlhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
       xmlhttp.send(JSON.stringify({ "video_id": videoId }));
     }
 
@@ -75,9 +79,9 @@
   <h3 id="top_10_header">Top 10 Most Repeatd Videos:</h3>
   {% for video in top_10 %}
     <div class="video">
-        <img src="{{ video.thumbnail_url }}">
-        <p class="video_title"><a href="/watch?v={{ video.video_id }}">{{ video.title }}</a></p>
-        <!-- <p class="description">{{ video.description }}</p> -->
+      <img src="{{ video.thumbnail_url }}">
+      <p class="video_title"><a href="/watch?v={{ video.video_id }}">{{ video.title }}</a></p>
+      <!-- <p class="description">{{ video.description }}</p> -->
       <div class="play_count">
         Play Count:
         <div>{{ video.play_count }}</div>
