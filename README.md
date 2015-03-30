@@ -3,6 +3,18 @@ Clone of [listenonrepeat.com](http://listenonrepeat.com/?v=ojvTSRA-O-Y#Corgi_Sno
 
 Name inspired by Flaskr, the Flask tutorial site.
 
+### To get it to work:
+
+To initialize the database open a Python console and type the following commands:
+
+```
+>>> from repeatr import init_db
+>>> init_db()
+```
+
+You'll also need to include a YouTube API key in an instance config file (i.e. create a directory called instance/ in the root app directory and put a config.py file in there with `YOUTUBE_API_KEY = 'your api key'`)
+
+
 ### To-do with more time:
 * Find clever and beautiful way to incorporate video descriptions in top 10 list
 * Numbering on top 10 list...
